@@ -21,3 +21,6 @@ function launchModal() {
 }
 
 
+// MON CODE
+const firstName = document.getElementById('first')
+console.log(firstName.minLength);
