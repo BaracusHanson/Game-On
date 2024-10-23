@@ -20,7 +20,7 @@ const hero = document.querySelector(".hero-section");
  */
 const accueilButton = document.querySelector(".main-navbar");
 const heroHeadline = document.querySelector(".hero-headline");
-const main = document.querySelector('main')
+const main = document.querySelector("main");
 const heroText = document.querySelector(".hero-text");
 const heroSection = document.querySelector(".hero-section");
 const heroContent = document.querySelector(".hero-content");
@@ -28,9 +28,12 @@ const content = document.querySelector(".content");
 accueilButton.children[0].style.display = "none";
 accueilButton.children[1].style.backgroundColor = "#FE142F";
 accueilButton.children[1].style.borderRadius = "8px";
-const icon = document.querySelector('.icon')
-const logoMobile = document.querySelector('.header-logo').children[0]
+const icon = document.querySelector(".icon");
+const logoMobile = document.querySelector(".header-logo").children[0];
 
+/**
+ * GESTION L AFFICHAGE EN VERSION MOBILE
+ */
 // media query pour un écran avec une largeur maximale de 768px
 const mediaQuery = window.matchMedia("(max-width: 768px)");
 
@@ -47,18 +50,15 @@ function handleTabletChange(e) {
     heroContent.style.minWidth = "100hw";
     navigation.style.display = "flex";
     content.style.margin = "0";
- 
-    icon.style.margin= "0"
-    navigation.style.justifyContent = "space-between"
-    navigation.style.alignItems = "center"
-    icon.style.color = "#FF001B"
-    logoMobile.style.width = "131px"
-   
-    
-    
-
+    navigation.style.opacity = "1";
+    // icon.style.margin = "0";
+    navigation.style.justifyContent = "space-between";
+    navigation.style.alignItems = "center";
+    icon.style.color = "#FF001B";
+    logoMobile.style.width = "131px";
   } else {
     console.log("Écran plus large que 768px");
+    // navigation.style.opacity = "1";
   }
 }
 
@@ -72,12 +72,23 @@ modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
 function launchModal() {
   modalbg.style.display = "block";
   modalbg.style.position = "relative";
-  heroSection.style.display = "none"
-  heroSection.style.width = "100vw"
-     main.style.margin= "0"
-    main.style.padding= "0"
-
+  modalbg.style.backgroundColor = "white";
+  heroSection.style.display = "none";
+  heroSection.style.width = "100vw";
+  main.style.margin = "0";
+  main.style.padding = "0";
+  footer.style.display = "none";
+  if (modalbg.style.display === "block" && mediaQuery.matches) {
+    navigation.style.height = "100%";
+    navigation.style.display = "flex";
+  }
+  if (modalbg.style.display === "block" && !mediaQuery.matches) {
+    navigation.style.height = "0";
+    navigation.style.display = "none";
+  }
 }
+
+
 
 /**
  * GESTION DE FERMETURE DE LA MODALE
@@ -91,24 +102,26 @@ function closeModal() {
     navigation.style.display = "flex";
     footer.style.display = "block";
     hero.style.display = "";
-    heroSection.style.width = "100%"
-       main.style.margin= ""
-    main.style.padding= ""
+    heroSection.style.width = "100%";
+    main.style.margin = "";
+    main.style.padding = "";
+    navigation.style.display = "block";
+    navigation.style.width = "100%";
+    footer.style.display = "";
+    if (modalbg.style.display === "none" && !mediaQuery.matches) {
+      navigation.style.height = "100%";
+      navigation.style.display = "flex";
+    }
   });
 }
 
 closeModal();
 
-
-
-
-
-
 /**
  * GESTION INJECTION DES ATTRIBUTS AUX INPUTS DU FORMULAIRE
  */
 
-// selection des inputs 
+// selection des inputs
 const prenom = document.querySelector("#first");
 const nom = document.querySelector("#last");
 const birthdate = document.querySelector("#birthdate");
@@ -123,7 +136,6 @@ function addAttributs(first, last, birthdate) {
   birthdate.setAttribute("required", true);
 }
 addAttributs(prenom, nom, birthdate);
-
 
 /**
  * GESTION DE VALIDATION DU FORMULAIRE
@@ -259,8 +271,6 @@ function validate() {
   return isValid; // Empêche l'envoi du formulaire si des champs sont invalides
 }
 
-
-
 /**
  * GESTION DE SOUMISSION DU FORMULAIRE
  */
@@ -275,4 +285,10 @@ form.addEventListener("submit", (e) => {
   }
 });
 
+/**
+ * GESTION MESSAGE CONFIRMATION DE SOUMISSION DU FORMULAIRE
+ */
 
+const modalConfirmation = document.createElement("div");
+modalConfirmation.classList.add();
+main.appendChild(modalConfirmation);
