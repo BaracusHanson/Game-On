@@ -11,6 +11,60 @@ function editNav() {
 const modalbg = document.querySelector(".bground");
 const modalBtn = document.querySelectorAll(".modal-btn");
 const formData = document.querySelectorAll(".formData");
+const navigation = document.querySelector(".topnav");
+const footer = document.querySelector("footer");
+const hero = document.querySelector(".hero-section");
+
+/**
+ * modification de la barre de navigation
+ */
+const accueilButton = document.querySelector(".main-navbar");
+const heroHeadline = document.querySelector(".hero-headline");
+const main = document.querySelector('main')
+const heroText = document.querySelector(".hero-text");
+const heroSection = document.querySelector(".hero-section");
+const heroContent = document.querySelector(".hero-content");
+const content = document.querySelector(".content");
+accueilButton.children[0].style.display = "none";
+accueilButton.children[1].style.backgroundColor = "#FE142F";
+accueilButton.children[1].style.borderRadius = "8px";
+const icon = document.querySelector('.icon')
+const logoMobile = document.querySelector('.header-logo').children[0]
+
+// media query pour un écran avec une largeur maximale de 768px
+const mediaQuery = window.matchMedia("(max-width: 768px)");
+
+// Fonction qui sera appelée quand la media query correspond
+function handleTabletChange(e) {
+  if (e.matches) {
+    console.log("Écran de tablette ou plus petit");
+    heroHeadline.style.fontSize = "2.3rem";
+    heroHeadline.style.fontWeight = "900";
+    heroText.style.fontSize = "0.8rem";
+    heroText.style.marginTop = "17px";
+    heroText.style.Height = "100vh";
+    heroContent.style.padding = "20px 0px";
+    heroContent.style.minWidth = "100%";
+    navigation.style.display = "flex";
+    content.style.margin = "0";
+    main.style.margin= "0"
+    main.style.padding= "0"
+    icon.style.margin= "0"
+    navigation.style.justifyContent = "space-between"
+    navigation.style.alignItems = "center"
+    icon.style.color = "#FF001B"
+    logoMobile.style.width = "131px"
+   
+    
+    
+
+  } else {
+    console.log("Écran plus large que 768px");
+  }
+}
+
+handleTabletChange(mediaQuery);
+mediaQuery.addEventListener("change", handleTabletChange);
 
 // launch modal event
 modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
@@ -18,22 +72,31 @@ modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
 // launch modal form
 function launchModal() {
   modalbg.style.display = "block";
+  modalbg.style.position = "relative";
+  heroSection.style.display = "none"
+  heroSection.style.width = "100vw"
+  // modalbg.style.backgroundColor = "white";
+  // navigation.style.display = "none";
+  // footer.style.display = "none";
+  // hero.style.display = "none";
 }
 //close modal form
 function closeModal() {
   const crossClose = document.querySelector(".close");
   crossClose.addEventListener("click", () => {
     modalbg.style.display = "none";
+    navigation.style.display = "flex";
+    footer.style.display = "block";
+    hero.style.display = "";
+    heroSection.style.width = "100%"
   });
 }
 
 closeModal();
 
-/**
- * Les champs Prénom et Nom ont un minimum de 2 caractères / n'est pas vide.
- */
 
-// selection des inputs prenom et nom
+
+// selection des inputs 
 const prenom = document.querySelector("#first");
 const nom = document.querySelector("#last");
 const birthdate = document.querySelector("#birthdate");
@@ -141,14 +204,15 @@ function validate() {
   const location4 = document.getElementById("location4");
   const location5 = document.getElementById("location5");
   const location6 = document.getElementById("location6");
- 
 
-  if (!location1.checked &&
+  if (
+    !location1.checked &&
     !location2.checked &&
     !location3.checked &&
     !location4.checked &&
     !location5.checked &&
-    !location6.checked) {
+    !location6.checked
+  ) {
     p5.classList.add("text-label");
     p5.style.color = "red";
     p5.innerHTML = "Un tournoi doit être sélectionné !";
@@ -189,3 +253,5 @@ form.addEventListener("submit", (e) => {
     form.submit();
   }
 });
+
+
