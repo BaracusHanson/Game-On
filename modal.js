@@ -44,11 +44,10 @@ function handleTabletChange(e) {
     heroText.style.marginTop = "17px";
     heroText.style.Height = "100vh";
     heroContent.style.padding = "20px 0px";
-    heroContent.style.minWidth = "100%";
+    heroContent.style.minWidth = "100hw";
     navigation.style.display = "flex";
     content.style.margin = "0";
-    main.style.margin= "0"
-    main.style.padding= "0"
+ 
     icon.style.margin= "0"
     navigation.style.justifyContent = "space-between"
     navigation.style.alignItems = "center"
@@ -75,11 +74,15 @@ function launchModal() {
   modalbg.style.position = "relative";
   heroSection.style.display = "none"
   heroSection.style.width = "100vw"
-  // modalbg.style.backgroundColor = "white";
-  // navigation.style.display = "none";
-  // footer.style.display = "none";
-  // hero.style.display = "none";
+     main.style.margin= "0"
+    main.style.padding= "0"
+
 }
+
+/**
+ * GESTION DE FERMETURE DE LA MODALE
+ */
+
 //close modal form
 function closeModal() {
   const crossClose = document.querySelector(".close");
@@ -89,12 +92,21 @@ function closeModal() {
     footer.style.display = "block";
     hero.style.display = "";
     heroSection.style.width = "100%"
+       main.style.margin= ""
+    main.style.padding= ""
   });
 }
 
 closeModal();
 
 
+
+
+
+
+/**
+ * GESTION INJECTION DES ATTRIBUTS AUX INPUTS DU FORMULAIRE
+ */
 
 // selection des inputs 
 const prenom = document.querySelector("#first");
@@ -112,6 +124,10 @@ function addAttributs(first, last, birthdate) {
 }
 addAttributs(prenom, nom, birthdate);
 
+
+/**
+ * GESTION DE VALIDATION DU FORMULAIRE
+ */
 function validate() {
   let isValid = true;
   const formPrenom = document.querySelector("form");
@@ -243,6 +259,11 @@ function validate() {
   return isValid; // Empêche l'envoi du formulaire si des champs sont invalides
 }
 
+
+
+/**
+ * GESTION DE SOUMISSION DU FORMULAIRE
+ */
 const form = document.querySelector("form");
 form.addEventListener("submit", (e) => {
   e.preventDefault(); // Empêcher l'envoi du formulaire pour vérifier les champs
