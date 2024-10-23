@@ -54,95 +54,138 @@ function validate() {
   const formPrenom = document.querySelector("form");
 
   // Prénom
-  const p1 = document.createElement("p");
+  let p1 = document.getElementById("error-first");
+  if (!p1) {
+    p1 = document.createElement("p");
+    p1.id = "error-first";
+    formPrenom.children[0].appendChild(p1);
+  }
   const firstName = document.getElementById("first");
-  firstName.addEventListener("input", (e) => {
-    e.preventDefault();
-    console.log(firstName.value.length < 2);
 
-    if (firstName.value.length < 2 || firstName.value.length === 0) {
-      const ok = formPrenom.children[0];
-      p1.classList.add("text-label");
-      p1.style.color = "red";
-      p1.innerHTML = "Le champ Prénom a un minimum de 2 caractères";
-      ok.appendChild(p1);
-      isValid = false;
-    }
-    if (firstName.value.length >= 2) {
-      p1.innerHTML = "";
-    }
-  });
+  if (firstName.value.length < 2) {
+    p1.classList.add("text-label");
+    p1.style.color = "red";
+    p1.innerHTML = "Le champ Prénom a un minimum de 2 caractères";
+    isValid = false;
+  } else {
+    p1.innerHTML = ""; // Effacer les messages d'erreur précédents
+  }
+
   // Nom
-  const p2 = document.createElement("p");
+  let p2 = document.getElementById("error-last");
+  if (!p2) {
+    p2 = document.createElement("p");
+    p2.id = "error-last";
+    formPrenom.children[1].appendChild(p2);
+  }
   const lastName = document.getElementById("last");
-  lastName.addEventListener("input", (e) => {
-    e.preventDefault();
 
-    if (lastName.value.length < 2 || lastName.value.length === 0) {
-      const ok = formPrenom.children[1];
-      p2.classList.add("text-label");
-      p2.style.color = "red";
-      p2.innerHTML = "Le champ Nom a un minimum de 2 caractères";
-      ok.appendChild(p2);
-      isValid = false;
-    }
-    if (lastName.value.length >= 2) {
-      p2.innerHTML = "";
-    }
-  });
+  if (lastName.value.length < 2) {
+    p2.classList.add("text-label");
+    p2.style.color = "red";
+    p2.innerHTML = "Le champ Nom a un minimum de 2 caractères";
+    isValid = false;
+  } else {
+    p2.innerHTML = "";
+  }
 
   // Email
-  const p3 = document.createElement("p");
+  let p3 = document.getElementById("error-email");
+  if (!p3) {
+    p3 = document.createElement("p");
+    p3.id = "error-email";
+    formPrenom.children[2].appendChild(p3);
+  }
   const email = document.getElementById("email");
+  const emailPattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
 
-  email.addEventListener("input", () => {
-    const emailPattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
-    if (!email.value.match(emailPattern)) {
-      const ok = formPrenom.children[2];
-      p3.classList.add("text-label");
-      p3.style.color = "red";
-      p3.innerHTML = "L'adresse électronique est invalide";
-      ok.appendChild(p3);
-      isValid = false;
-    }
-    if (email.value.match(emailPattern)) {
-      p3.innerHTML = "";
-    }
-  });
+  if (!email.value.match(emailPattern)) {
+    p3.classList.add("text-label");
+    p3.style.color = "red";
+    p3.innerHTML = "L'adresse électronique est invalide";
+    isValid = false;
+  } else {
+    p3.innerHTML = "";
+  }
 
   // Nombre de tournois
+  let p4 = document.getElementById("error-quantity");
+  if (!p4) {
+    p4 = document.createElement("p");
+    p4.id = "error-quantity";
+    formPrenom.children[4].appendChild(p4);
+  }
   const quantity = document.getElementById("quantity");
-  quantity.type = "text";
-  const p4 = document.createElement("p");
-  quantity.addEventListener("input", () => {
-    if (quantity.value === "" || isNaN(quantity.value)) {
-      const ok = formPrenom.children[4];
-      ok.appendChild(p4);
-      p4.innerHTML = "Veuillez entrer un nombre valide";
-      p4.classList.add("text-label");
-      p4.style.color = "red";
-      isValid = false;
-    }
-    if (quantity.value > 0) {
-      p4.innerHTML = "";
-    }
-  });
+
+  if (isNaN(quantity.value) || quantity.value === "") {
+    p4.classList.add("text-label");
+    p4.style.color = "red";
+    p4.innerHTML = "Veuillez entrer un nombre valide";
+    isValid = false;
+  } else {
+    p4.innerHTML = "";
+  }
 
   // Tournoi (radio buttons)
-  const location = document.querySelectorAll("checkbox-input");
-  const ok = formPrenom.children[6];
-  console.log(ok);
-  if (!location) {
+  let p5 = document.getElementById("error-location");
+  if (!p5) {
+    p5 = document.createElement("p");
+    p5.id = "error-location";
+    formPrenom.children[6].appendChild(p5);
+  }
+  const location = document.querySelectorAll(".checkbox-input");
+  // Accéder aux boutons radio directement par leur id
+  const location1 = document.getElementById("location1");
+  const location2 = document.getElementById("location2");
+  const location3 = document.getElementById("location3");
+  const location4 = document.getElementById("location4");
+  const location5 = document.getElementById("location5");
+  const location6 = document.getElementById("location6");
+ 
+
+  if (!location1.checked &&
+    !location2.checked &&
+    !location3.checked &&
+    !location4.checked &&
+    !location5.checked &&
+    !location6.checked) {
+    p5.classList.add("text-label");
+    p5.style.color = "red";
+    p5.innerHTML = "Un tournoi doit être sélectionné !";
     isValid = false;
+  } else {
+    p5.innerHTML = "";
   }
 
   // Conditions générales
-  // const terms = document.getElementById("checkbox1");
-  // if (!terms.checked) {
-  //   alert("Vous devez accepter les conditions d'utilisation.");
-  //   isValid = false;
-  // }
+  let p6 = document.getElementById("error-terms");
+  if (!p6) {
+    p6 = document.createElement("p");
+    p6.id = "error-terms";
+    formPrenom.children[7].appendChild(p6);
+  }
+  const terms = document.getElementById("checkbox1");
+
+  if (!terms.checked) {
+    p6.classList.add("text-label");
+    p6.style.color = "red";
+    p6.style.paddingBottom = "16px";
+    p6.innerHTML = "Vous devez accepter les conditions d'utilisation.";
+    isValid = false;
+  } else {
+    p6.innerHTML = "";
+  }
 
   return isValid; // Empêche l'envoi du formulaire si des champs sont invalides
 }
-validate();
+
+const form = document.querySelector("form");
+form.addEventListener("submit", (e) => {
+  e.preventDefault(); // Empêcher l'envoi du formulaire pour vérifier les champs
+  const formIsValid = validate();
+
+  if (formIsValid) {
+    // Soumettre le formulaire si toutes les validations sont réussies
+    form.submit();
+  }
+});
