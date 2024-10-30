@@ -272,48 +272,44 @@ function validate() {
 /**
  * GESTION DE SOUMISSION DU FORMULAIRE
  */
+let isFormSubmitted = false;
 const form = document.querySelector("form");
 form.addEventListener("submit", (e) => {
   e.preventDefault(); // Empêcher l'envoi du formulaire pour vérifier les champs
-  // const formIsValid = validate();
+  if (isFormSubmitted) return;
+  const formIsValid = validate();
 
+  if (formIsValid) {
+    // Marquer le formulaire comme soumis
+    isFormSubmitted = true;
 
-  const form = document.querySelector("form");
+    // Masquer le contenu du modal-body et réajuster la hauteur du modal
+    const modalBody = document.querySelector(".modal-body");
+    modalBody.style.display = "none";
 
-  form.addEventListener("submit", (e) => {
-    e.preventDefault(); // Empêcher l'envoi du formulaire pour vérifier les champs
-    const formIsValid = validate();
+    const contentModal = document.querySelector(".content");
+    contentModal.style.height = "770px";
+    contentModal.style.display = "flex";
+    contentModal.style.flexDirection = "column";
+    contentModal.style.justifyContent = "space-between";
+    contentModal.style.alignItems = "center";
+    contentModal.style.paddingBottom = "24px";
 
-    if (formIsValid) {
-      // Masquer le contenu du modal-body et réajuster la hauteur du modal
-      const modalBody = document.querySelector(".modal-body");
-      modalBody.style.display = "none";
+    // Ajouter le texte et le bouton de fermeture
+    const text0 = document.createElement("p");
+    const text = document.createElement("p");
+    text.textContent = "Merci pour votre inscription !";
+    contentModal.appendChild(text0);
+    contentModal.appendChild(text);
 
-      const contentModal = document.querySelector(".content");
-      contentModal.style.height = "770px";
-      contentModal.style.display = "flex";
-      contentModal.style.flexDirection = "column";
-      contentModal.style.justifyContent = "space-between";
-      contentModal.style.alignItems = "center";
-      contentModal.style.paddingBottom = "24px";
+    const buttonModal = document.createElement("button");
+    buttonModal.classList.add("btn-submit");
+    contentModal.appendChild(buttonModal);
+    buttonModal.textContent = "Fermer";
 
-      // Ajouter le texte et le bouton de fermeture
-      const text2 = document.createElement("p");
-      const text = document.createElement("p");
-      text.textContent = "Merci pour votre inscription";
-      contentModal.appendChild(text2);
-      contentModal.appendChild(text);
-
-      const buttonModal = document.createElement("button");
-      buttonModal.classList.add("btn-submit");
-      contentModal.appendChild(buttonModal);
-      const modalbtn = document.querySelector(".btn-submit");
-      buttonModal.textContent = "Fermer";
-
-      //  bouton de fermeture pour rafraîchir la page
-      buttonModal.addEventListener("click", () => {
-        location.reload();
-      });
-    }
-  });
+    // Bouton de fermeture pour rafraîchir la page
+    buttonModal.addEventListener("click", () => {
+      location.reload();
+    });
+  }
 });
