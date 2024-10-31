@@ -272,16 +272,16 @@ function validate() {
 /**
  * GESTION DE SOUMISSION DU FORMULAIRE
  */
-let isFormSubmitted = false;
+// let isFormSubmitted = false;
 const form = document.querySelector("form");
 form.addEventListener("submit", (e) => {
   e.preventDefault(); // Empêcher l'envoi du formulaire pour vérifier les champs
-  if (isFormSubmitted) return;
+  // if (isFormSubmitted) return;
   const formIsValid = validate();
 
   if (formIsValid) {
     // Marquer le formulaire comme soumis
-    isFormSubmitted = true;
+    // isFormSubmitted = true;
 
     // Masquer le contenu du modal-body et réajuster la hauteur du modal
     const modalBody = document.querySelector(".modal-body");
